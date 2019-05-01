@@ -44,9 +44,7 @@ class AmqpCppConan(ConanFile):
         cmake.build()
 
     def package(self):
-        self.copy("license*", src=self.name, dst="licenses", ignore_case=True, keep_path=False)
         self.copy("*.h", dst="include", src=os.path.join(self.name, "include"))
-        self.copy("amqpcpp.h", dst="include", src=self.name)
         self.copy("*.lib", dst="lib", keep_path=False)
         self.copy("*.dll", dst="bin", keep_path=False)
         self.copy("*.so", dst="lib", keep_path=False)
