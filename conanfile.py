@@ -24,7 +24,6 @@ class AmqpCppConan(ConanFile):
     def source(self):
         git = tools.Git(folder=self.name)
         git.clone("https://github.com/CopernicaMarketingSoftware/AMQP-CPP/tree/v%s" % self.version)
-        os.rename("AMQP-CPP-" + self.version, self._source_subfolder)
         os.rename(os.path.join(self.name, "CMakeLists.txt"),
                   os.path.join(self.name, "CMakeListsOriginal.txt"))
         shutil.copy("CMakeLists.txt", os.path.join(self.name, "CMakeLists.txt"))
