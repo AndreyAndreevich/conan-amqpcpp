@@ -19,7 +19,6 @@ class AmqpCppConan(ConanFile):
         "linux_tcp": True
     }
     generators = "cmake"
-    exports_sources = ["CMakeLists.txt"]
 
     def source(self):
         git = tools.Git(folder=self.name)
