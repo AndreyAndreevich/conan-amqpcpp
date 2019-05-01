@@ -26,7 +26,7 @@ class AmqpCppConan(ConanFile):
         git.checkout("v%s" % self.version)
         os.rename(os.path.join(self.name, "CMakeLists.txt"),
                   os.path.join(self.name, "CMakeListsOriginal.txt"))
-        fd = os.open(self.name/"CMakeLists.txt", os.O_RDWR | os.CREAT)
+        fd = os.open(os.path.join(self.name, "CMakeLists.txt"), os.O_RDWR | os.CREAT)
         os.write(fd, '''
             cmake_minimum_required(VERSION 3.0)
             project(cmake_wrapper)
@@ -36,7 +36,7 @@ class AmqpCppConan(ConanFile):
     
             include("CMakeListsOriginal.txt")
             ''')
-        shutil.copy("CMakeLists.txt", os.path.join(self.name, "CMakeLists.txt"))
+        os.close(fd)
 
     def requirements(self):
         self.requires.add("OpenSSL/1.0.2n@conan/stable")
