@@ -1,5 +1,4 @@
 import os
-import shutil
 from conans import ConanFile, CMake, tools
 
 class AmqpCppConan(ConanFile):
@@ -27,15 +26,14 @@ class AmqpCppConan(ConanFile):
         os.rename(os.path.join(self.name, "CMakeLists.txt"),
                   os.path.join(self.name, "CMakeListsOriginal.txt"))
         fd = os.open(os.path.join(self.name, "CMakeLists.txt"), os.O_RDWR | os.O_CREAT)
-        os.write(fd, '''
-            cmake_minimum_required(VERSION 3.0)
+        os.write(fd, '''cmake_minimum_required(VERSION 3.0)
             project(cmake_wrapper)
             
             include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
             conan_basic_setup()
     
             include("CMakeListsOriginal.txt")
-            ''')
+            '''.encode())
         os.close(fd)
 
     def requirements(self):
