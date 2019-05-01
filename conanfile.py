@@ -19,7 +19,6 @@ class AmqpCppConan(ConanFile):
         "linux_tcp": True
     }
     generators = "cmake"
-    exports_sources = ["CMakeLists.txt"]
 
     def source(self):
         git = tools.Git(folder=self.name)
@@ -27,6 +26,16 @@ class AmqpCppConan(ConanFile):
         git.checkout("v%s" % self.version)
         os.rename(os.path.join(self.name, "CMakeLists.txt"),
                   os.path.join(self.name, "CMakeListsOriginal.txt"))
+        fd = os.open(self.name/"CMakeLists.txt", os.O_RDWR | os.CREAT)
+        os.write(fd, '''
+            cmake_minimum_required(VERSION 3.0)
+            project(cmake_wrapper)
+            
+            include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+            conan_basic_setup()
+    
+            include("CMakeListsOriginal.txt")
+            ''')
         shutil.copy("CMakeLists.txt", os.path.join(self.name, "CMakeLists.txt"))
 
     def requirements(self):

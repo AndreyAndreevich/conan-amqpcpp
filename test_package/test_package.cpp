@@ -2,8 +2,7 @@
 #include <iostream>
 #include <amqpcpp.h>
 
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	const std::string s = "Hello, World!";
 	AMQP::ByteBuffer buffer(s.data(), s.size());
