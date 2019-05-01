@@ -18,6 +18,8 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
+    on:
+      all_branches: true
     script:
       conan remote add $CONAN_REMOTE $CONAN_UPLOAD --insert &&
       conan user -p $BINTRAY_API_KEY -r $CONAN_REMOTE $CONAN_USERNAME &&
