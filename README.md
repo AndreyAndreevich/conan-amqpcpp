@@ -5,7 +5,7 @@ conan remote add andrbek "https://api.bintray.com/conan/andrbek/conan"
 
 ### Include on conaninfo.txt
 ```
-amqpcpp/4.1.5@andrbek/testing
+amqpcpp/4.1.5@andrbek/stable
 ```
 
 ### Options:
